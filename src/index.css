@@ -5,6 +5,8 @@ Fonts
 */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap');
 
+/* Color palette: https://colorhunt.co/palette/334257476072548ca8eeeeee */
+
 /*
 =============== 
 Variables
@@ -12,6 +14,11 @@ Variables
 */
 
 :root {
+  --escuro-1: #334257;
+  --escuro-2: #476072;
+  --claro-1: #548CA8;
+  --claro-2: #EEEEEE;
+  
   /* dark shades of primary color*/
   --clr-primary-1: hsl(185, 91%, 17%);
   --clr-primary-2: hsl(185, 84%, 25%);
@@ -68,8 +75,9 @@ Global Styles
 }
 body {
   font-family: var(--ff-secondary);
-  background: var(--clr-grey-10);
-  color: var(--clr-grey-1);
+  /* background: var(--clr-grey-10); */
+  background: #334257;
+  color: var(--clr-grey-10);
   line-height: 1.5;
   font-size: 0.875rem;
 }
@@ -108,7 +116,7 @@ h4 {
 }
 p {
   margin-bottom: 1.25rem;
-  color: var(--clr-grey-5);
+  color: var(--clr-grey-10);
 }
 @media screen and (min-width: 800px) {
   h1 {
@@ -181,3 +189,19 @@ p {
 main {
   padding-bottom: 2rem;
 }
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px grey;  */
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--claro-1); 
+  border-radius: 10px;
+}
+

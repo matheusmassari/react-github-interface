@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { GithubContext } from "../context/context";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
+
 const Repos = () => {
-  return <h2>repos component</h2>;
+  const { repos } = useContext(GithubContext);
+
+  let languages = repos.reduce((total, item) => {
+    const { language } = item;
+    if (!language) return total;
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 };
+    } else {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+      };
+    }
+    return total;
+  }, {});
+  languages = Object.values(languages)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+
+
+  // ================ CHART DATA BEGIN
+  const chartData = {
+    chart: {
+      caption: "Languages",
+      theme: "candy",
+      decimals: 0,
+      pieRadius: "40%",
+      // paletteColors: "#334257, #476072, #548CA8, #EEEEEE, #EEEEEE, ",
+      bgColor: "#476072",
+    },
+    data: languages
+  };
+
+  // ================ CHART DATA END
+
+  return (
+    <secttion className="section">
+      <Wrapper className="section-center">
+        <Pie3D data={chartData} />
+        {/* <ExampleChart data={chartData} /> */}
+      </Wrapper>
+    </secttion>
+  );
 };
 
 const Wrapper = styled.div`

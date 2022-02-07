@@ -40,7 +40,8 @@ const Card = () => {
   );
 };
 const Wrapper = styled.article`
-  background: var(--clr-white);
+  ${"" /* background: var(--clr-white); */}
+  background: #476072;
   padding: 1.5rem 2rem;
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
@@ -52,8 +53,8 @@ const Wrapper = styled.article`
     top: 0;
     left: 0;
     transform: translateY(-100%);
-    background: var(--clr-white);
-    color: var(--clr-grey-5);
+    background: #476072;
+    color: var(--clr-grey-);
     border-top-right-radius: var(--radius);
     border-top-left-radius: var(--radius);
     text-transform: capitalize;
@@ -94,7 +95,7 @@ const Wrapper = styled.article`
     }
   }
   .bio {
-    color: var(--clr-grey-3);
+    color: var(--clr-grey-10);
   }
   .links {
     p,

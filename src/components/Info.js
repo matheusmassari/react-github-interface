@@ -72,7 +72,7 @@ const Wrapper = styled.section`
   .item {
     border-radius: var(--radius);
     padding: 1rem 2rem;
-    background: var(--clr-white);
+    background: #476072;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 3rem;
@@ -96,20 +96,20 @@ const Wrapper = styled.section`
       text-transform: capitalize;
     }
     .pink {
-      background: #ffe0f0;
-      color: #da4a91;
+      background: #548ca8;
+      color: #eeeeee;
     }
     .green {
-      background: var(--clr-primary-10);
-      color: var(--clr-primary-5);
+      background: #548ca8;
+      color: #eeeeee;
     }
     .purple {
-      background: #e6e6ff;
-      color: #5d55fa;
+      background: #548ca8;
+      color: #eeeeee;
     }
     .yellow {
-      background: #fffbea;
-      color: #f0b429;
+      background: #548ca8;
+      color: #eeeeee;
     }
   }
 `;
