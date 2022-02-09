@@ -1,10 +1,6 @@
 import React from "react";
 import FusionCharts from "fusioncharts";
-// import Maps from "fusioncharts/fusioncharts.maps";
-// import World from "fusioncharts/maps/fusioncharts.world";
 import ReactFC from "react-fusioncharts";
-// import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
-// import ZuneTheme from "fusioncharts/themes/fusioncharts.theme.zune";
 import CandyTheme from "fusioncharts/themes/fusioncharts.theme.candy";
 import Charts from "fusioncharts/fusioncharts.charts";
 
@@ -13,10 +9,25 @@ ReactFC.fcRoot(FusionCharts, Charts, CandyTheme);
 const Pie3D = ({ data }) => {
   const chartConfigs = {
     type: "pie3d",
-    width: 500,
+    width: "100%",
     height: 400,
     dataFormat: "json",
-    dataSource: data,
+    dataSource: {
+      chart: {
+        caption: "Languages",
+        theme: "candy",
+        decimals: 0,
+        pieRadius: "40%",
+        bgColor: "#476072",
+        xAxisNameFontColor: "#EEEEEE",
+        labelFontColor: "#EEEEEE",
+        yAxisNameFontColor: "#EEEEEE",
+        yAxisValueFontColor: "#EEEEEE",
+        captionFontColor: "#EEEEEE",
+        paletteColors: "#EBE645, #BAABDA, #CDDEFF, #7900FF, #FFFCDC",
+      },
+      data,
+    },
   };
   return <ReactFC {...chartConfigs} />;
 };

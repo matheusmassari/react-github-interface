@@ -1,51 +1,66 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { GithubContext } from "../context/context";
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
+import { Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 
 const Repos = () => {
   const { repos } = useContext(GithubContext);
 
-  let languages = repos.reduce((total, item) => {
-    const { language } = item;
+  // ==> Treating Repos Data <== //
+  const languages = repos.reduce((total, item) => {
+    const { language, stargazers_count } = item;
     if (!language) return total;
     if (!total[language]) {
-      total[language] = { label: language, value: 1 };
+      total[language] = { label: language, value: 1, stars: stargazers_count };
     } else {
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
       };
     }
     return total;
   }, {});
-  languages = Object.values(languages)
+
+  // ==> Most Used Languages <== //
+  const mostUsed = Object.values(languages)
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
 
+  // ==> Most Stars Per Language <== //
+  const mostStars = Object.values(languages)
+    .sort((a, b) => b.stars - a.stars)
+    .map((item) => {
+      return { ...item, value: item.stars };
+    })
+    .slice(0, 5);
 
-  // ================ CHART DATA BEGIN
-  const chartData = {
-    chart: {
-      caption: "Languages",
-      theme: "candy",
-      decimals: 0,
-      pieRadius: "40%",
-      // paletteColors: "#334257, #476072, #548CA8, #EEEEEE, #EEEEEE, ",
-      bgColor: "#476072",
+  // ==> Most Forks, stars <== //
+  let { stars, forks } = repos.reduce(
+    (total, item) => {
+      const { stargazers_count, name, forks } = item;
+      total.stars[stargazers_count] = { label: name, value: stargazers_count };
+      total.forks[forks] = { label: name, value: forks };
+      return total;
     },
-    data: languages
-  };
-
-  // ================ CHART DATA END
+    {
+      stars: {},
+      forks: {},
+    }
+  );
+  stars = Object.values(stars).slice(-5).reverse();
+  forks = Object.values(forks).slice(-5).reverse();
+  // === === === === === === === === === === //
 
   return (
-    <secttion className="section">
+    <section className="section">
       <Wrapper className="section-center">
-        <Pie3D data={chartData} />
-        {/* <ExampleChart data={chartData} /> */}
+        <Pie3D data={mostUsed} />
+        <Column3D data={stars} />
+        <Doughnut2D data={mostStars} />
+        <Bar3D data={forks} />
       </Wrapper>
-    </secttion>
+    </section>
   );
 };
 
