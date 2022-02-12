@@ -1,16 +1,24 @@
-import React from "react";
-import { Info, Repos, User, Search, Navbar } from "../components";
+import React, { useContext } from "react";
+import { Info, Repos, User, Search, Navbar, Loading } from "../components";
 import loadingImage from "../images/preloader.gif";
 import { GithubContext } from "../context/context";
 
 const Dashboard = () => {
+  const { isLoading } = useContext(GithubContext);
+
   return (
     <main>
-      {/* <Navbar /> */}
+      <Navbar />
       <Search />
-      <Info />
-      <User />
-      <Repos />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Info />
+          <User />
+          <Repos />
+        </>
+      )}
     </main>
   );
 };

@@ -6,15 +6,23 @@ import { GithubContext } from "../context/context";
 const Search = () => {
   const [user, setUser] = useState("");
   // ==> global context variaveis <== //
+  const { requests, error, searchGithubUser, isLoading } = useContext(GithubContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    if (user) {
+      searchGithubUser(user);
+    }
   };
 
   return (
     <section className="section">
       <Wrapper className="section-center">
+        {error.show && (
+          <ErrorWrapper>
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-control">
             <MdSearch />
@@ -24,10 +32,13 @@ const Search = () => {
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
-            <button type="submit"> Search</button>
+            <button type="submit" disabled={isLoading || requests <= 0}>
+              {" "}
+              Search
+            </button>
           </div>
         </form>
-        <h3>Requests: 60 / 60</h3>
+        <h3>Requests: {requests} / 60</h3>
       </Wrapper>
     </section>
   );
@@ -78,6 +89,14 @@ const Wrapper = styled.div`
         background: var(--clr-primary-8);
         color: var(--clr-primary-1);
       }
+    }
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    [disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     svg {
